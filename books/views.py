@@ -1,3 +1,9 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 
-# Create your views here.
+from .models import Book
+
+
+def list_books(request):
+    return HttpResponse(request.user.username)
+
