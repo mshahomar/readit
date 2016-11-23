@@ -16,7 +16,8 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
 
-from books.views import AuthorDetail, AuthorList, BookDetail, list_books
+from books.views import (AuthorDetail, AuthorList, BookDetail,
+                         list_books, review_books, review_book)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -24,6 +25,8 @@ urlpatterns = [
     url(r'^authors/$', AuthorList.as_view(), name='authors'),
     url(r'^books/(?P<pk>[-\w]+)/$', BookDetail.as_view(), name='book-detail'),
     url(r'^authors/(?P<pk>[-\w]+)/$', AuthorDetail.as_view(), name='author-detail'),
+    url(r'^review/$', review_books, name='review-books'),
+    url(r'^review/(?P<pk>\d+)/$', review_book, name='review-book'),
 ]
 
 if settings.DEBUG:
