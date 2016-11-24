@@ -4,7 +4,7 @@ from django.views.generic import DetailView, View
 # from django.http import HttpResponse
 
 from .models import Book, Author
-from .forms import ReviewForm
+from .forms import ReviewForm, BookForm
 
 
 def list_books(request):
@@ -40,11 +40,33 @@ class AuthorDetail(DetailView):
     template_name = "books/author.html"
 
 
-def review_books(request):
-    """List all of the books taht we want to review"""
-    books = Book.objects.filter(date_reviewed__isnull=True).prefetch_related('authors')
-    context = {'books': books, }
-    return render(request, "books/list_to_review.html", context)
+class ReviewList(View):
+    """List all of the books that we want to review"""
+
+    def get(self, request):
+        books = Book.objects.filter(date_reviewed__isnull=True).prefetch_related('authors')
+        context = {
+            'books': books,
+            'form': BookForm,
+        }
+
+        return render(request, "books/list_to_review.html", context)
+
+    def post(self, request):
+        """Savings of new book to be reviewed from list_to_review page"""
+        form = BookForm(request.POST)
+        books = Book.objects.filter(date_reviewed__isnull=True).prefetch_related('authors')
+
+        if form.is_valid():
+            form.save()
+            return redirect('review-books')
+
+        context = {
+            'form': form,
+            'books': books,
+        }
+
+        return render(request, "books/list_to_review.html", context)
 
 
 def review_book(request, pk):

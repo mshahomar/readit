@@ -5,11 +5,7 @@
 {% block content %}
     <h1>{{ books.count|apnumber|capfirst  }} book{{ books.count|pluralize }}</h1>
     {% for book in books %}
-        <h2>{{ book.title }} by {{ book.list_authors }}</h2>
-        {% if book.is_favourite %}
-            <span class="highlight">favourite</span>
-        {% endif %}
-        <p>{{ book.review }}</p>
+        {% include "books/book_detail.html" %}
     {% empty %}
         <p>Something wrong! We can't retrieve the review.</p>
     {% endfor %}
