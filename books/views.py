@@ -4,6 +4,7 @@ from django.views.generic import DetailView, View
 # from django.http import HttpResponse
 
 from .models import Book, Author
+from .forms import ReviewForm
 
 
 def list_books(request):
@@ -48,8 +49,12 @@ def review_books(request):
 
 def review_book(request, pk):
     """Review an individual book"""
-    book = get_object_or_404(Book, pk=pk)
+    book = get_object_or_404 (Book, pk=pk)
+    form = ReviewForm
 
-    context = {'book': book}
+    context = {
+        'book': book,
+        'form': form,
+    }
     return render(request, "books/review_book.html", context)
 
