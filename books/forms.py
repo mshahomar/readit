@@ -25,7 +25,7 @@ class BookForm(forms.ModelForm):
     """Form adding a new book to be reviewed"""
     class Meta:
         model = Book
-        fields = ['title', 'authors']
+        fields = ['title', 'authors', 'reviewed_by']
 
     def clean(self):
         # Super the clean method to maintain main validation and error messages
