@@ -109,6 +109,9 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'readit', 'static'),
 )
 
+# Auth
+LOGIN_URL = '/login/'
+
 # INTERNAL_IPS
 INTERNAL_IPS = [
     '127.0.0.1',
