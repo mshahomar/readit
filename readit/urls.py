@@ -14,7 +14,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.conf import settings
+# from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views as auth_views
 from books.views import (AuthorDetail, AuthorList, BookDetail, CreateAuthor,
@@ -38,8 +38,8 @@ urlpatterns = [
     url(r'^review/(?P<pk>\d+)/$', review_book, name='review-book'),
 ]
 
-if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns += [
-        url(r'^__debug__/', include(debug_toolbar.urls)),
-    ]
+# if settings.DEBUG:
+#     import debug_toolbar
+#     urlpatterns += [
+#         url(r'^__debug__/', include(debug_toolbar.urls)),
+#     ]
